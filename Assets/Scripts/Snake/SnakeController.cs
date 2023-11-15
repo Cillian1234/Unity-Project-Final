@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -8,18 +9,18 @@ public class SnakeController : MonoBehaviour
     private Vector3 yMove = new Vector3(0, 0.225f, 0);
     private Vector3 xMove = new Vector3(0.225f, 0, 0);
     private SpawnManager spawnManager;
-    public GameObject head ,body;
-
-    private float xBodyPos;
-    private float yBodyPos;
+    public GameObject head, body;
     private int nChildObjects;
-    public Vector3[] bodyPos;
+    public Vector3[] bodyPos = new Vector3[1];
+    public GameObject[] bodyPieces = new GameObject[0];
 
     // Start is called before the first frame update
     void Start()
     {
         spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
         InvokeRepeating(nameof(MoveForwards), 1, speed);
+        bodyPieces[0] = GameObject.FindWithTag("SnakeBody");
+        bodyPos[0] = bodyPieces[0].transform.position;
     }
 
     // Update is called once per frame
@@ -57,26 +58,41 @@ public class SnakeController : MonoBehaviour
                 transform.Translate(xMove);
                 break;
         }
+
+        for (int i = 0; i <= bodyPieces.Length-1; i++)
+        {
+            bodyPieces[i] = GameObject.FindGameObjectsWithTag("SnakeBody")[i];
+            bodyPos[i].Set(bodyPieces[i].transform.position.x, bodyPieces[i].transform.position.y, -1.1f);
+        }
+
+        for (int i = 0; i < bodyPieces.Length; i++)
+        {
+                bodyPieces[i].transform.position = bodyPos[i];
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         spawnManager.SpawnFood();
 
+        bodyPieces = new GameObject[bodyPieces.Length + 1];
+
         switch (directionPressed)
         {
             case 0:
-                Instantiate(body, (head.transform.GetChild(nChildObjects)).position-yMove, transform.rotation, head.transform);
+                Instantiate(body, bodyPos[bodyPos.Length-1] - yMove, transform.rotation);
                 break;
             case 1:
-                Instantiate(body, (head.transform.GetChild(nChildObjects)).position+xMove, transform.rotation, head.transform);
+                Instantiate(body, bodyPos[bodyPos.Length-1] + xMove, transform.rotation);
                 break;
             case 2:
-                Instantiate(body, (head.transform.GetChild(nChildObjects)).position+yMove, transform.rotation, head.transform);
+                Instantiate(body, bodyPos[bodyPos.Length-1] + yMove, transform.rotation);
                 break;
             case 3:
-                Instantiate(body, (head.transform.GetChild(nChildObjects)).position-xMove, transform.rotation, head.transform);
+                Instantiate(body, bodyPos[bodyPos.Length-1] - xMove, transform.rotation);
                 break;
         }
+        bodyPos = new Vector3[bodyPieces.Length];
     }
 }
