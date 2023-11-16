@@ -1,98 +1,94 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SnakeController : MonoBehaviour
 {
+    public static SnakeController Instance;
+    public GameObject snakeBody;
+
     public float speed;
-    private int directionPressed = 0;
-    private Vector3 yMove = new Vector3(0, 0.225f, 0);
-    private Vector3 xMove = new Vector3(0.225f, 0, 0);
-    private SpawnManager spawnManager;
-    public GameObject head, body;
-    private int nChildObjects;
-    public Vector3[] bodyPos = new Vector3[1];
-    public GameObject[] bodyPieces = new GameObject[0];
+    public Vector3 headPosition;
+    private Vector3 lastMove;
+    private Vector3 facing;
+    public List<Vector3> bodyPositions = new List<Vector3>();
+    private GameObject[] numOfBodies;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        spawnManager = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
-        InvokeRepeating(nameof(MoveForwards), 1, speed);
-        bodyPieces[0] = GameObject.FindWithTag("SnakeBody");
-        bodyPos[0] = bodyPieces[0].transform.position;
+        Instance = GetComponent<SnakeController>();
+        headPosition = new Vector3(0, 0, -1.5f);
+        lastMove = new Vector3(0, 1, 0);
+        facing = transform.eulerAngles;
+        InvokeRepeating("MoveHandler", 1 , speed);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        InputHandler();
+    }
+
+    private void MoveHandler()
+    {
+        bodySpawner();
+        headPosition += lastMove;
+        transform.position = headPosition;
+        transform.eulerAngles = facing;
+
+    }
+
+    private void InputHandler()
+    {
+        if (Input.GetKeyDown(KeyCode.W) && lastMove != Vector3.down)
         {
-            directionPressed = 0;
-        } else if (Input.GetKeyDown(KeyCode.A))
+            lastMove = Vector3.up;
+            facing.z = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.A) && lastMove != Vector3.right)
         {
-            directionPressed = 1;
-        } else if (Input.GetKeyDown(KeyCode.S))
+            lastMove = Vector3.left;
+            facing.z = 90;
+        }
+        if (Input.GetKeyDown(KeyCode.S) && lastMove != Vector3.up)
         {
-            directionPressed = 2;
-        } else if (Input.GetKeyDown(KeyCode.D))
+            lastMove = Vector3.down;
+            facing.z = 180;
+        }
+        if (Input.GetKeyDown(KeyCode.D) && lastMove != Vector3.left)
         {
-            directionPressed = 3;
+            lastMove = Vector3.right;
+            facing.z = 270;
         }
     }
 
-    private void MoveForwards()
+    private void bodySpawner()
     {
-        switch (directionPressed)
+        numOfBodies = GameObject.FindGameObjectsWithTag("SnakeBody");
+        for (int i = 0; i < numOfBodies.Length; i++)
         {
-            case 0:
-                transform.Translate(yMove);
-                break;
-            case 1:
-                transform.Translate(-xMove);
-                break;
-            case 2:
-                transform.Translate(-yMove);
-                break;
-            case 3:
-                transform.Translate(xMove);
-                break;
+            Destroy(numOfBodies[i]);
         }
 
-        for (int i = 0; i <= bodyPieces.Length-1; i++)
-        {
-            bodyPieces[i] = GameObject.FindGameObjectsWithTag("SnakeBody")[i];
-            bodyPos[i].Set(bodyPieces[i].transform.position.x, bodyPieces[i].transform.position.y, -1.1f);
-        }
+        bodyPositions.Insert(0, headPosition);
 
-        for (int i = 0; i < bodyPieces.Length; i++)
+        for (int i = 0; i < SpawnManager.Instance.fruitEaten; i++)
         {
-                bodyPieces[i].transform.position = bodyPos[i];
+            Instantiate(snakeBody, bodyPositions[i], transform.rotation);
         }
+    }
 
+    public List<Vector3> getAreaCoveredBySnake()
+    {
+        List<Vector3> snakeArea = new List<Vector3>() { headPosition };
+        snakeArea.AddRange(bodyPositions);
+        return snakeArea;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        spawnManager.SpawnFood();
-
-        bodyPieces = new GameObject[bodyPieces.Length + 1];
-
-        switch (directionPressed)
-        {
-            case 0:
-                Instantiate(body, bodyPos[bodyPos.Length-1] - yMove, transform.rotation);
-                break;
-            case 1:
-                Instantiate(body, bodyPos[bodyPos.Length-1] + xMove, transform.rotation);
-                break;
-            case 2:
-                Instantiate(body, bodyPos[bodyPos.Length-1] + yMove, transform.rotation);
-                break;
-            case 3:
-                Instantiate(body, bodyPos[bodyPos.Length-1] - xMove, transform.rotation);
-                break;
-        }
-        bodyPos = new Vector3[bodyPieces.Length];
+        Destroy(other);
+        SpawnManager.Instance.fruitEaten++;
+        SpawnManager.Instance.SpawnFood();
     }
 }
