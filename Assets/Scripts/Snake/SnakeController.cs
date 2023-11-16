@@ -27,6 +27,7 @@ public class SnakeController : MonoBehaviour
     private void Update()
     {
         InputHandler();
+        Debug.Log(bodyPositions.Contains(SpawnManager.Instance.position));
     }
 
     private void MoveHandler()
@@ -35,7 +36,6 @@ public class SnakeController : MonoBehaviour
         headPosition += lastMove;
         transform.position = headPosition;
         transform.eulerAngles = facing;
-
     }
 
     private void InputHandler()
@@ -78,12 +78,12 @@ public class SnakeController : MonoBehaviour
         }
     }
 
-    public List<Vector3> getAreaCoveredBySnake()
-    {
-        List<Vector3> snakeArea = new List<Vector3>() { headPosition };
-        snakeArea.AddRange(bodyPositions);
-        return snakeArea;
-    }
+    // public List<Vector3> getAreaCoveredBySnake()
+    // {
+    //     List<Vector3> snakeArea = new List<Vector3>() { headPosition };
+    //     snakeArea.AddRange(bodyPositions);
+    //     return snakeArea;
+    // }
 
     private void OnTriggerEnter(Collider other)
     {
