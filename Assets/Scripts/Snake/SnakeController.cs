@@ -14,6 +14,7 @@ public class SnakeController : MonoBehaviour
     private Vector3 facing;
     public List<Vector3> bodyPositions = new List<Vector3>();
     private GameObject[] numOfBodies;
+    private int tempGate = 0;
 
     private void Start()
     {
@@ -27,7 +28,6 @@ public class SnakeController : MonoBehaviour
     private void Update()
     {
         InputHandler();
-        Debug.Log(bodyPositions.Contains(SpawnManager.Instance.position));
     }
 
     private void MoveHandler()
@@ -87,8 +87,20 @@ public class SnakeController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(other);
-        SpawnManager.Instance.fruitEaten++;
-        SpawnManager.Instance.SpawnFood();
+        if (tempGate ==0)
+        {
+            Destroy(other);
+            SpawnManager.Instance.fruitEaten++;
+            SpawnManager.Instance.SpawnFood();
+            tempGate++;
+        }
+
+        StartCoroutine(wait());
+    }
+
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(1f);
+        tempGate = 0;
     }
 }

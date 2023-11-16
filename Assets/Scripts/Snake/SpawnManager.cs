@@ -27,16 +27,13 @@ public class SpawnManager : MonoBehaviour
 
     private Vector3 SpawnPos()
     {
-        xRange = Random.Range(-5, 6);
-        yRange = Random.Range(-5, 6);
-        position = new Vector3(xRange, yRange, -1);
+        do
+        {
+            xRange = Random.Range(-5, 6);
+            yRange = Random.Range(-5, 6);
+            position = new Vector3(xRange, yRange, -1.5f);
+        } while (SnakeController.Instance.bodyPositions.Contains(position));
 
-        if (SnakeController.Instance.headPosition != position)
-        {
-            return position;
-        } else
-        {
-            return new Vector3(10, 10, -1.5f);
-        }
+        return position;
     }
 }
