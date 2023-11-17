@@ -20,7 +20,8 @@ public class Score : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("HighScore"))
         {
-            highScoreText.text = "High Score: \n" + PlayerPrefs.GetInt("HighScore", 0).ToString();
+            highScore = PlayerPrefs.GetInt("HighScore", 0);
+            highScoreText.text = "High Score: \n" + highScore;
         }
 
         score = 0;

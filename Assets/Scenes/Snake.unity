@@ -1406,7 +1406,6 @@ GameObject:
   - component: {fileID: 757669566}
   - component: {fileID: 757669565}
   - component: {fileID: 757669570}
-  - component: {fileID: 757669571}
   m_Layer: 0
   m_Name: PlayerHead
   m_TagString: Untagged
@@ -1496,30 +1495,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snakeBody: {fileID: 1589776231315276051, guid: 5228448b6d88e6f4bac329a64c8710ae, type: 3}
   spawnManager: {fileID: 1964011669}
-  secPerMove: 0.5
+  secPerMove: 0.25
   headPosition: {x: 0, y: 0, z: 0}
   bodyPositions: []
---- !u!65 &757669571
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 757669563}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &759885750
 GameObject:
   m_ObjectHideFlags: 0
