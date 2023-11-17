@@ -1,38 +1,38 @@
-using System;
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class SnakeController : MonoBehaviour
 {
-    public static SnakeController Instance;
     public GameObject snakeBody;
+    public SpawnManager spawnManager;
 
-    public float speed;
-    public Vector3 headPosition;
+    public float secPerMove;
+    [HideInInspector] public Vector3 headPosition;
     private Vector3 lastMove;
     private Vector3 facing;
     public List<Vector3> bodyPositions = new List<Vector3>();
     private GameObject[] numOfBodies;
-    private int tempGate = 0;
 
     private void Start()
     {
-        Instance = GetComponent<SnakeController>();
         headPosition = new Vector3(0, 0, -1.5f);
         lastMove = new Vector3(0, 1, 0);
         facing = transform.eulerAngles;
-        InvokeRepeating("MoveHandler", 1 , speed);
+        InvokeRepeating("MoveHandler", 1 , secPerMove);
     }
 
     private void Update()
     {
+        if (headPosition == spawnManager.fruitPosition)
+        {
+            spawnManager.SpawnFood();
+        }
         InputHandler();
     }
 
     private void MoveHandler()
     {
-        bodySpawner();
+        BodySpawner();
         headPosition += lastMove;
         transform.position = headPosition;
         transform.eulerAngles = facing;
@@ -62,7 +62,7 @@ public class SnakeController : MonoBehaviour
         }
     }
 
-    private void bodySpawner()
+    private void BodySpawner()
     {
         numOfBodies = GameObject.FindGameObjectsWithTag("SnakeBody");
         for (int i = 0; i < numOfBodies.Length; i++)
@@ -72,35 +72,19 @@ public class SnakeController : MonoBehaviour
 
         bodyPositions.Insert(0, headPosition);
 
-        for (int i = 0; i < SpawnManager.Instance.fruitEaten; i++)
+        if (bodyPositions.Count > numOfBodies.Length+1)
+        {
+            bodyPositions.RemoveAt(bodyPositions.Count-1);
+        }
+
+        for (int i = 0; i < spawnManager.fruitEaten; i++)
         {
             Instantiate(snakeBody, bodyPositions[i], transform.rotation);
         }
     }
 
-    // public List<Vector3> getAreaCoveredBySnake()
-    // {
-    //     List<Vector3> snakeArea = new List<Vector3>() { headPosition };
-    //     snakeArea.AddRange(bodyPositions);
-    //     return snakeArea;
-    // }
-
-    private void OnTriggerEnter(Collider other)
+    public Vector3 getHeadPos()
     {
-        if (tempGate ==0)
-        {
-            Destroy(other);
-            SpawnManager.Instance.fruitEaten++;
-            SpawnManager.Instance.SpawnFood();
-            tempGate++;
-        }
-
-        StartCoroutine(wait());
-    }
-
-    IEnumerator wait()
-    {
-        yield return new WaitForSeconds(1f);
-        tempGate = 0;
+        return headPosition;
     }
 }
