@@ -26,7 +26,7 @@ public class SpawnManager : MonoBehaviour
     {
         fruitEaten++;
         isValidPosition = true;
-
+        int attempts = 0;
         do
         {
 
@@ -47,6 +47,12 @@ public class SpawnManager : MonoBehaviour
                     isValidPosition = false;
                     break;
                 }
+            }
+
+            attempts++;
+            if (attempts>800)
+            {
+                break;
             }
         } while (!isValidPosition);
 
