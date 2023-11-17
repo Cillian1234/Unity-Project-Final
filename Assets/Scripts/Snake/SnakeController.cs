@@ -34,6 +34,7 @@ public class SnakeController : MonoBehaviour
     {
         BodySpawner();
         headPosition += lastMove;
+        checkGameOver();
         transform.position = headPosition;
         transform.eulerAngles = facing;
     }
@@ -80,6 +81,19 @@ public class SnakeController : MonoBehaviour
         for (int i = 0; i < spawnManager.fruitEaten; i++)
         {
             Instantiate(snakeBody, bodyPositions[i], transform.rotation);
+        }
+    }
+
+    private void checkGameOver()
+    {
+        if (bodyPositions.Contains(headPosition)
+            || headPosition.x > 5
+            || headPosition.x < -5
+            || headPosition.y > 5
+            || headPosition.y < -5)
+        {
+            spawnManager.isGameOver = true;
+            CancelInvoke("MoveHandler");
         }
     }
 

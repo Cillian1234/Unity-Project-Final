@@ -12,9 +12,11 @@ public class SpawnManager : MonoBehaviour
     public int fruitEaten;
 
     private bool isValidPosition;
+    public bool isGameOver;
 
     private void Start()
     {
+        isGameOver = false;
         apple = GameObject.FindGameObjectWithTag("Food");
         fruitPosition = new Vector3(0, 3, -1.5f);
         fruitEaten = 0;
@@ -25,7 +27,6 @@ public class SpawnManager : MonoBehaviour
         fruitEaten++;
         isValidPosition = true;
 
-        int attempts = 0;
         do
         {
 
@@ -47,17 +48,8 @@ public class SpawnManager : MonoBehaviour
                     break;
                 }
             }
-
-            attempts++;
-            if (attempts >= 8000)
-            {
-                Debug.Log("Failed");
-                break;
-            }
         } while (!isValidPosition);
 
         apple.transform.position = fruitPosition;
     }
-
-
 }
