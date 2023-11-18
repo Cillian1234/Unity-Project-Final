@@ -1,0 +1,10 @@
+Hub: 
+
+Grass material > Handpainted Grass & Ground Textures by Chromisu
+https://assetstore.unity.com/packages/2d/textures-materials/nature/handpainted-grass-ground-textures-187634
+
+Game selection signs > Low Poly: Woods Lifestyle by Rad-Coders
+Both the board and plank from here.
+https://assetstore.unity.com/packages/3d/environments/low-poly-woods-lifestyle-65306
+
+Trees > m 
