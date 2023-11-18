@@ -1,15 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
     private int score;
     private int highScore;
     private float time;
+
     [SerializeField]private SpawnManager spawnManager;
     [SerializeField]private TextMeshProUGUI scoreText;
     [SerializeField]private TextMeshProUGUI highScoreText;
@@ -32,17 +29,15 @@ public class Score : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        editHighScore();
         if (spawnManager.isGameOver == false)
         {
-        score = spawnManager.fruitEaten * 50;
-        scoreText.text = "Score: " + score;
+            score = spawnManager.fruitEaten * 50;
+            scoreText.text = "Score: " + score;
 
-        time += Time.deltaTime;
-        timerText.text = "Time: " + Mathf.RoundToInt(time);
-
-        editHighScore();
-        } else
-        gameOverText.gameObject.SetActive(true);
+            time += Time.deltaTime;
+            timerText.text = "Time: " + Mathf.RoundToInt(time);
+        }
     }
 
     private void editHighScore()
