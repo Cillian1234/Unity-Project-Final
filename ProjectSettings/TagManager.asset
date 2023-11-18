@@ -8,6 +8,8 @@ TagManager:
   - Game.Snake
   - Game.Main
   - SnakeBody
+  - Food
+  - Game.2DShooter
   layers:
   - Default
   - TransparentFX

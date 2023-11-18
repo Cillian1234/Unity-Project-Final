@@ -193,7 +193,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sample text
+  m_text: Tetris
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -220,7 +220,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50.25
+  m_fontSize: 68.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -279,7 +279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: e712748253b139349b2a6e8544f23013, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Game.Tetris
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e712748253b139349b2a6e8544f23013, type: 3}
       propertyPath: m_LocalPosition.x
@@ -295,27 +295,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e712748253b139349b2a6e8544f23013, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9952465
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e712748253b139349b2a6e8544f23013, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.04345342
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e712748253b139349b2a6e8544f23013, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.08707283
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e712748253b139349b2a6e8544f23013, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0038016832
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e712748253b139349b2a6e8544f23013, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e712748253b139349b2a6e8544f23013, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e712748253b139349b2a6e8544f23013, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

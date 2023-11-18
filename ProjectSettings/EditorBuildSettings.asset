@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Snake.unity
     guid: c24cb5ddb6ed6d046806dc99197a3f0e
+  - enabled: 1
+    path: Assets/Scenes/2D Wave Shooter.unity
+    guid: 820cc73706364d647a819f53590268e1
   m_configObjects: {}

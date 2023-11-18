@@ -23,6 +23,11 @@ public class GameSelectButtons : MonoBehaviour
             SceneManager.LoadScene(2);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+        } else if (CompareTag("Game.2DShooter"))
+        {
+            SceneManager.LoadScene(3);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }

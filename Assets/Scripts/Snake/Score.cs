@@ -11,7 +11,7 @@ public class Score : MonoBehaviour
     [SerializeField]private TextMeshProUGUI scoreText;
     [SerializeField]private TextMeshProUGUI highScoreText;
     [SerializeField]private TextMeshProUGUI timerText;
-    [SerializeField] private TextMeshProUGUI gameOverText;
+    [SerializeField] private TextMeshProUGUI newHighScore;
 
     private void Start()
     {
@@ -23,30 +23,29 @@ public class Score : MonoBehaviour
 
         score = 0;
         time = 0;
-        gameOverText.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        editHighScore();
-        if (spawnManager.isGameOver == false)
-        {
-            score = spawnManager.fruitEaten * 50;
-            scoreText.text = "Score: " + score;
-
-            time += Time.deltaTime;
-            timerText.text = "Time: " + Mathf.RoundToInt(time);
-        }
+        EditHighScore();
     }
 
-    private void editHighScore()
+    private void EditHighScore()
     {
         if (score > highScore)
         {
             highScore = score;
+            highScoreText.text = "High Score: \n" + highScore;
             PlayerPrefs.SetInt("HighScore", highScore);
             PlayerPrefs.Save();
+
+            newHighScore.SetText("New High Score!");
         }
+        score = spawnManager.fruitEaten * 50;
+        scoreText.text = "Score: \n" + score;
+
+        time += Time.deltaTime;
+        timerText.text = "Time: " + Mathf.RoundToInt(time);
     }
 }

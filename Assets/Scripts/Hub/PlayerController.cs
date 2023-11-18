@@ -16,8 +16,8 @@ public class PlayerController : MonoBehaviour
     public float walkSpeed;
     public float runSpeed;
     private float yVelocity;
-    private float jumpHeight = 10f;
-    private float gravity = 0.5f;
+    private float jumpHeight = 15f;
+    private float gravity = 0.25f;
 
     private float mouseRotation;
     private float lookRange = 80f;
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         {
             yVelocity = jumpHeight;
         }
-        else
+        else if (!grounded)
         {
             yVelocity -= gravity;
         }
