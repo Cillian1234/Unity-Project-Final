@@ -10,6 +10,9 @@ TagManager:
   - SnakeBody
   - Food
   - Game.2DShooter
+  - Tetris.Active
+  - Tetris.Inactive
+  - Tetris.Held
   layers:
   - Default
   - TransparentFX
