@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 8517430587542656273}
   m_Layer: 0
   m_Name: Pink T
-  m_TagString: Untagged
+  m_TagString: Tetris.OnGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

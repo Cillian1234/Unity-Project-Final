@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 21530314983977436}
   m_Layer: 0
   m_Name: Green thing
-  m_TagString: Untagged
+  m_TagString: Tetris.OnGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

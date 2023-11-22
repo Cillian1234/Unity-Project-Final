@@ -1,15 +1,16 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class PieceMovement : MonoBehaviour
 {
-    private GameObject activePiece;
-
+    public GameObject activePiece;
+    
     private Vector3 move;
-
     private Quaternion rotation;
     // Start is called before the first frame update
-    void Start()
+    public void findPiece()
     {
         activePiece = GameObject.FindGameObjectWithTag("Tetris.Active");
     }
@@ -41,12 +42,12 @@ public class PieceMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            activePiece.transform.Rotate(0,0,45f);
+            activePiece.transform.Rotate(0,0,90f);
         }
         
         if (Input.GetKeyDown(KeyCode.E))
         {
-            activePiece.transform.Rotate(0,0,-45f);
+            activePiece.transform.Rotate(0,0,-90f);
         }
     }
 }
