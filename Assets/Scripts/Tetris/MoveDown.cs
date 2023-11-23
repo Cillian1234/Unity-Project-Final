@@ -9,7 +9,7 @@ public class MoveDown : MonoBehaviour
     public PieceMovement piece;
     private Vector3 position;
 
-    void Start()
+    void Awake()
     {
         piece = GameObject.Find("Game Manager").GetComponent<PieceMovement>();
     }

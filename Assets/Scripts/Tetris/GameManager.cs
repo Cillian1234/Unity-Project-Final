@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
             Instantiate(pieces[pieceNum], new Vector3(4.5f, 18, -1),Quaternion.identity).tag = "Tetris.Active";
         }
     }
-    
+
     private void getActivePiecePositions() 
     {
         activePieceChildPositions.Clear();
