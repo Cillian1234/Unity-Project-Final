@@ -428,12 +428,24 @@ PrefabInstance:
       value: Tetris.Active
       objectReference: {fileID: 0}
     - target: {fileID: 1422612681104743193, guid: 2a11bb8e9505b52449fb8167dfa0f06b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422612681104743193, guid: 2a11bb8e9505b52449fb8167dfa0f06b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422612681104743193, guid: 2a11bb8e9505b52449fb8167dfa0f06b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422612681104743193, guid: 2a11bb8e9505b52449fb8167dfa0f06b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.487177
+      value: 4.8939
       objectReference: {fileID: 0}
     - target: {fileID: 1422612681104743193, guid: 2a11bb8e9505b52449fb8167dfa0f06b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1422612681104743193, guid: 2a11bb8e9505b52449fb8167dfa0f06b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -466,6 +478,14 @@ PrefabInstance:
     - target: {fileID: 1422612681104743193, guid: 2a11bb8e9505b52449fb8167dfa0f06b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1422612681104743193, guid: 2a11bb8e9505b52449fb8167dfa0f06b, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3806481105953181581, guid: 2a11bb8e9505b52449fb8167dfa0f06b, type: 3}
+      propertyPath: m_ImplicitCom
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -547,6 +567,7 @@ MonoBehaviour:
   - {fileID: 7165571891433488514, guid: 4dae1ca4ff623024b973c0b9f6388fe4, type: 3}
   - {fileID: 2370519569858056372, guid: 6c15bdb17bfe07540b3b57b2d5be4a1c, type: 3}
   activePieceChildPositions: []
+  activePiece: {fileID: 0}
 --- !u!4 &1182563395
 Transform:
   m_ObjectHideFlags: 0
@@ -574,7 +595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb56ea883438f940ab6fe8e631dc9e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activePiece: {fileID: 0}
 --- !u!114 &1182563397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,7 +607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7eb9bb871f761445a6a35ee16d13f5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  piece: {fileID: 0}
 --- !u!1 &1395110618
 GameObject:
   m_ObjectHideFlags: 0

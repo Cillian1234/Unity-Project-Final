@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.ComponentModel.Design;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,27 +9,50 @@ public class GameManager : MonoBehaviour
     public GameObject[] pieces;
     private GameObject[] allInactivePieces;
 
+
     private float leftBounds = -0.5f;
     private float rightBounds = 9.5f;
     private float bottomBounds = 0;
     private Vector3 childrenPositions;
     public List<Vector3> activePieceChildPositions = new List<Vector3>();
+    public GameObject activePiece;
+
+    private Vector3 move;
+    private Quaternion rotation;
+    private Vector3 position;
 
     // Start is called before the first frame update
     void Start()
     {
-        movePiece = GameObject.Find("Game Manager").GetComponent<MoveDown>();
-        movePiece.piece.findPiece();
-        movePiece.StartMoving();
+        Time.timeScale = 0.1f;
+        findPiece();
+        StartMoving();
     }
 
     // Update is called once per frame
     void Update()
     {
-        movePiece.piece.findPiece();
-        getActivePiecePositions();
-        checkForPieceCollision();
-        checkIfPieceInBounds();
+        pieceMovement();
+        findPiece();
+
+        if (GameObject.FindGameObjectsWithTag("Tetris.Active").Length == 0)
+        spawnNextPiece();
+    }
+
+    public void findPiece()
+    {
+        activePiece = GameObject.FindGameObjectWithTag("Tetris.Active");
+    }
+
+    private void MovePieceDown()
+    {
+        position = activePiece.transform.position + Vector3.down;
+        activePiece.transform.SetPositionAndRotation(position, activePiece.transform.rotation);
+    }
+
+    public void StartMoving()
+    {
+        InvokeRepeating("MovePieceDown", 1, 1);
     }
 
     private void spawnNextPiece()
@@ -45,14 +66,54 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(pieces[pieceNum], new Vector3(4.5f, 18, -1),Quaternion.identity).tag = "Tetris.Active";
         }
+        findPiece();
+        StartMoving();
     }
 
-    private void getActivePiecePositions() 
+    private void pieceMovement() {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Debug.Log("Swapped held piece");
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            getActivePieceChildPositions();
+            checkIfPieceInBounds();
+            move = activePiece.transform.position + Vector3.left;
+            activePiece.transform.SetPositionAndRotation(move, activePiece.transform.rotation);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Debug.Log("Slammed piece");
+        }
+
+        if (Input.GetKeyDown(KeyCode.D) && (activePiece.transform.position + new Vector3(1, 0, 0)).x !< 9.5f)
+        {
+            getActivePieceChildPositions();
+            checkIfPieceInBounds();
+            move = activePiece.transform.position + new Vector3(1,0,0);
+            activePiece.transform.SetPositionAndRotation(move, activePiece.transform.rotation);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            activePiece.transform.Rotate(0,0,90f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            activePiece.transform.Rotate(0,0,-90f);
+        }
+    }
+
+    private void getActivePieceChildPositions()
     {
         activePieceChildPositions.Clear();
         for (int i = 0; i < 4; i++)
         {
-            activePieceChildPositions.Add(movePiece.piece.activePiece.transform.GetChild(i).transform.position);    
+            activePieceChildPositions.Add(activePiece.transform.GetChild(i).transform.position);
         }
     }
 
@@ -60,45 +121,26 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            
             if (activePieceChildPositions[i].x < leftBounds)
             {
-                movePiece.piece.activePiece.transform.position += Vector3.right;
+                activePiece.transform.position += new Vector3(1, 0, 0);
             }
 
             if (activePieceChildPositions[i].x > rightBounds)
             {
-                movePiece.piece.activePiece.transform.position += Vector3.left;
+                activePiece.transform.position -= new Vector3(1, 0, 0);
             }
 
             if (activePieceChildPositions[i].y < bottomBounds)
             {
-                movePiece.piece.activePiece.tag = "Tetris.Inactive";
-                movePiece.CancelInvoke("MovePieceDown");
-                spawnNextPiece();
-                movePiece.piece.findPiece();
-                movePiece.StartMoving();
+                activePiece.tag = "Tetris.Inactive";
+                CancelInvoke("MovePieceDown");
             }
         }
     }
 
     private void checkForPieceCollision()
     {
-        allInactivePieces = GameObject.FindGameObjectsWithTag("Tetris.Inactive");
-        for (int i = 0; i < allInactivePieces.Length-1; i++)
-        {
-            for (int j = 0; j < 4; j++)
-            {
-                if (activePieceChildPositions.Contains(allInactivePieces[i].transform.GetChild(j).transform.position))
-                {
-                    movePiece.piece.activePiece.transform.position += Vector3.up;
-                    movePiece.piece.activePiece.tag = "Tetris.Inactive";
-                    movePiece.CancelInvoke("MovePieceDown");
-                    spawnNextPiece();
-                    movePiece.piece.findPiece();
-                    movePiece.StartMoving(); 
-                }
-            }
-        }
+
     }
 }
