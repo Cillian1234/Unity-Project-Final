@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using UnityEngine;
@@ -6,7 +7,6 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
-    private MoveDown movePiece;
     [SerializeField]private GameObject[] pieces;
     private GameObject[] allInactivePieces;
     private float leftBounds = -1;
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private Vector3 move;
     private Quaternion rotation;
     private Vector3 position;
+    private bool slowDownSlamming;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,8 @@ public class GameManager : MonoBehaviour
         spawnNextPiece();
         findPiece();
         getActivePieceChildPositions();
+
+        slowDownSlamming = true;
     }
 
     // Update is called once per frame
@@ -79,19 +82,21 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A) && checkIfPieceInBounds(true))
         {
             move = activePiece.transform.position + Vector3.left;
-            lastMove = Vector3.left;
             activePiece.transform.SetPositionAndRotation(move, activePiece.transform.rotation);
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) && slowDownSlamming)
         {
-            Debug.Log("Slammed piece");
+            move = activePiece.transform.position + Vector3.down;
+            activePiece.transform.SetPositionAndRotation(move, activePiece.transform.rotation);
+
+            slowDownSlamming = false;
+            StartCoroutine("TimeForSlamming");
         }
 
         if (Input.GetKeyDown(KeyCode.D) && checkIfPieceInBounds(false))
         {
             move = activePiece.transform.position + Vector3.right;
-            lastMove = Vector3.right;
             activePiece.transform.SetPositionAndRotation(move, activePiece.transform.rotation);
         }
 
@@ -104,6 +109,12 @@ public class GameManager : MonoBehaviour
         {
             activePiece.transform.Rotate(0,0,-90f);
         }
+    }
+
+    IEnumerator TimeForSlamming()
+    {
+        yield return new WaitForSeconds(0.25f);
+        slowDownSlamming = true;
     }
 
     private void getActivePieceChildPositions()
@@ -144,7 +155,6 @@ public class GameManager : MonoBehaviour
         {
             if (activePieceChildPositions[i].y <= bottomBounds)
             {
-                lastMove = Vector3.up;
                 activePiece.tag = "Tetris.Inactive";
                 CancelInvoke("MovePieceDown");
                 return false;
