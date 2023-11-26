@@ -13,6 +13,7 @@ TagManager:
   - Tetris.Active
   - Tetris.Inactive
   - Tetris.Held
+  - Github
   layers:
   - Default
   - TransparentFX

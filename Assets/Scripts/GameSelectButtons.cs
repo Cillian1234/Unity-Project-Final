@@ -28,6 +28,9 @@ public class GameSelectButtons : MonoBehaviour
             SceneManager.LoadScene(3);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+        } else if (CompareTag("Github"))
+        {
+            Application.OpenURL("https://github.com/Cillian1234/Unity-Project");
         }
     }
 }
