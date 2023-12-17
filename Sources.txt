@@ -14,3 +14,6 @@ Snake:
 
 Snake material > Handpainted Grass & Ground Textures by Chromisu
 https://assetstore.unity.com/packages/2d/textures-materials/nature/handpainted-grass-ground-textures-187634
+
+Particle Effects > Simple FX - Cartoon Particles by Synty Studios
+https://assetstore.unity.com/packages/vfx/particles/simple-fx-cartoon-particles-67834#content

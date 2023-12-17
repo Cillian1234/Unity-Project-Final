@@ -30,7 +30,7 @@ public class GameSelectButtons : MonoBehaviour
             Cursor.visible = true;
         } else if (CompareTag("Github"))
         {
-            Application.OpenURL("https://github.com/Cillian1234/Unity-Project");
+            Application.OpenURL("https://github.com/Cillian1234/Unity-Project-Final");
         }
     }
 }
