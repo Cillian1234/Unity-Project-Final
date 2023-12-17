@@ -11,7 +11,7 @@ public class winConditionCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (spawnManager.fruitEaten >= winCondition)
+        if (spawnManager.fruitEaten >= winCondition) // if snake length is 120 (entire game board) end the game
         {
             spawnManager.isGameOver = true;
         }

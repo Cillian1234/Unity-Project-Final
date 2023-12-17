@@ -12,7 +12,7 @@ public class GameState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (spawnManager.isGameOver)
+        if (spawnManager.isGameOver) // if game over, hide game hud and show game over menu
         {
             gameOverUI.SetActive(true);
             inGameUI.SetActive(false);

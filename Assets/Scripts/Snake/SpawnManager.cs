@@ -25,12 +25,11 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnFood()
     {
-        fruitEaten++;
+        fruitEaten++; // increase fruit eaten, increases score and allows new body piece to spawn
         isValidPosition = true;
         int attempts = 0;
-        do
+        do // generate random position for fruit to spawn, check if space is occupied by the snake head or body.
         {
-
             xRange = Random.Range(-5, 6);
             yRange = Random.Range(-5, 6);
             fruitPosition = new Vector3(xRange, yRange, -1.5f);
@@ -51,12 +50,12 @@ public class SpawnManager : MonoBehaviour
             }
 
             attempts++;
-            if (attempts>800)
+            if (attempts>800) // if it takes more than 800 attempts to find a suitable position, break the loop. to prevent infinite loops
             {
                 break;
             }
         } while (!isValidPosition);
 
-        apple.transform.position = fruitPosition;
+        apple.transform.position = fruitPosition; // move apple to new position
     }
 }

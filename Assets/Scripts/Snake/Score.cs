@@ -15,13 +15,13 @@ public class Score : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerPrefs.HasKey("HighScore"))
+        if (PlayerPrefs.HasKey("HighScore")) // If the player already has a high score, get it and display it
         {
             highScore = PlayerPrefs.GetInt("HighScore", 0);
             highScoreText.text = "High Score: \n" + highScore;
         }
 
-        score = 0;
+        score = 0; // reset variables
         time = 0;
     }
 
@@ -33,7 +33,7 @@ public class Score : MonoBehaviour
 
     private void EditHighScore()
     {
-        if (score > highScore)
+        if (score > highScore) // update high score text and save new highscore to player preferences
         {
             highScore = score;
             highScoreText.text = "High Score: \n" + highScore;
@@ -42,10 +42,10 @@ public class Score : MonoBehaviour
 
             newHighScore.SetText("New High Score!");
         }
-        score = spawnManager.fruitEaten * 50;
-        scoreText.text = "Score: \n" + score;
+        score = spawnManager.fruitEaten * 50; // calculate score
+        scoreText.text = "Score: \n" + score; // update text
 
-        time += Time.deltaTime;
-        timerText.text = "Time: " + Mathf.RoundToInt(time);
+        time += Time.deltaTime; // calculate time
+        timerText.text = "Time: " + Mathf.RoundToInt(time); // update text
     }
 }
